@@ -14,3 +14,47 @@ void hideCursor(){
       info.bVisible = false;
       SetConsoleCursorInfo(consoleHandle, &info);
 }
+
+void highlightText(std::string text, int loopCount, int x, int y){
+      int loopTime = 200;
+      while(loopCount){
+            loopCount--;
+            gotoXY(x, y);
+            Sleep(loopTime);
+            std::cout << text;
+            gotoXY(x, y);
+            Sleep(loopTime);
+            std::string hide(text.length(), ' ');
+            std::cout << hide;
+      }
+}
+
+void loadSimilaitor(int time, int x, int y, int loop){
+      while(loop > 0){
+            gotoXY(x, y);
+            std::cout << "|";
+            Sleep(time);
+            gotoXY(x, y);
+            std::cout << "/";
+            Sleep(time);
+            gotoXY(x, y);
+            std::cout << "-";
+            Sleep(time);
+            gotoXY(x, y);
+            std::cout << "\\";
+            Sleep(time);
+            gotoXY(x, y);
+            std::cout << "|";
+            Sleep(time);
+            gotoXY(x, y);
+            std::cout << "/";
+            Sleep(time);
+            gotoXY(x, y);
+            std::cout << "-";
+            Sleep(time);
+            gotoXY(x, y);
+            std::cout << "\\";
+            Sleep(time);
+            loop--;
+      }
+}

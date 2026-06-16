@@ -1,17 +1,22 @@
+#ifndef  GAME_H
 #define GAME_H
-#ifdef  GAME_H
 
 #include "manageScore.h"
+#include "snake.h"
+#include "segment.h"
+#include "food.h"
 
 class Game{
 private:
 
+      Food* food;
+      Snake* snake;
       RecordScore* recordScore;
       ManageScore* manageScore;
       int score, width, height;
       short health;
       bool isRunning;
-      int speed;
+      int speedMoveSnake, lastScoreForSpeed;
       std::string playerName;
 
       void handleInput();
@@ -21,6 +26,8 @@ private:
       void showMenu();
       int getMenuChoice();
       void getNamePlayer();
+      void helper() const;
+      void buildWall() const;
 
 public:
       Game(int width, int height);

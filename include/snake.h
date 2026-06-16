@@ -1,24 +1,23 @@
+#ifndef  SNAKE_H
 #define SNAKE_H
-#ifdef  SNAKE_H
 
-#include "segment.h"
 #include "utils.h"
+#include "segment.h"
 #include <vector>
 
-class Snake
+class Snake 
 {
 private:
-      enum Dir{ UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3 };
       std::vector<Segment> body;
       Dir direction;
       Dir oldDirection;
       char snakeHead, snakeBody;
       int initialLenght;
 
-      void setBody();
-public:
+      public:
       Snake(Dir, Dir, int);
-
+      
+      void setBody();
       void move();
       void grow();
       void draw() const;
@@ -28,11 +27,13 @@ public:
       bool checkSelfCollsion() const;
       bool checkWallCollsoin(int, int) const;
       
-      std::vector<Segment> getBody() const;
+      const std::vector<Segment>& getBody() const;
       int getDirection() const;
+      int getInitialLenght() const;
       void setOldDirection(Dir);
       void setSnakeHead(char);
       void setSnakeBody(char);
+      void setDefaultBody();
 
 };
 

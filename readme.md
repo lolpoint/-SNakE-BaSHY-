@@ -1,0 +1,1 @@
+g++ -std=c++17 utils.cpp snake.cpp segment.cpp recordScoreByName.cpp manageScore.cpp game.cpp food.cpp main.cpp -o snake.exe

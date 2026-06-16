@@ -1,5 +1,5 @@
+#ifndef  MANAGE_SCORE_H
 #define MANAGE_SCORE_H
-#ifdef  MANAGE_SCORE_H
 
 #include <vector>
 #include "recordScoreByName.h"
@@ -12,9 +12,12 @@ private:
 public:
       bool saveScore();
       void sortByScore(bool = false);
-      void addScoreWithName(const RecordScore&);
+      void addScoreWithName(RecordScore&);
       void showTopTenScoreRecord();
       void loadFromFile(const std::string&);
+      bool hasPlayerName(std::string);
+      void hasPlayerNameChange(std::string, int);
+      
       std::string getterFileName()const;
 };
 

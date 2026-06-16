@@ -1,5 +1,5 @@
+#ifndef  FOOD_H
 #define FOOD_H
-#ifdef  FOOD_H
 
 #include "utils.h"
 #include "snake.h"
@@ -10,7 +10,9 @@ private:
       char symbol;
 public:
       Food(int, int);
-      void generateRandom(const Snake&, int, int);
+      Food();
+
+      void generateRandomFood(const Snake&, int, int);
       int getX() const;
       int getY() const;
       void draw() const;

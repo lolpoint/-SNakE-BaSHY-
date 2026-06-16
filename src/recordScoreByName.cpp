@@ -1,22 +1,62 @@
-#define RECORED_SCORE_BY_NAME_H
-#ifdef  RECORED_SCORE_BY_NAME_H
+#include "..\include\recordScoreByName.h"
+#include <iostream>
+#include <fstream>
 
-#include <string>
+RecordScore::RecordScore(std::string playerName, int score){
+      setterPlayerName(playerName);
+      setterScore(score);
+      muchTry = 1;
+}
 
-class RecordScore{
-private:
-      std::string playerName;
-      int score;
+int RecordScore::getterScore()const{ return score; }
+std::string RecordScore::getterPlayerName()const{ return playerName; }
+void RecordScore::setterMuchTry(int much_try){ this->muchTry = much_try; }
 
-      public:
-      RecordScore(std::string, int);
-      
-      void setterPlayerName(std::string);
-      void setterScore(int);
-      void display();
-      int getterScore()const;
-      std::string getterPlaterName()const;
-      std::string toFileScore()const;
-};
+void RecordScore::setterPlayerName(std::string playerName){
+      try{
+            this->playerName = playerName;
+            if(this->playerName == ""){
+                  throw std::runtime_error("have't name for save record...");
+            }
+      }catch(const std::exception& e){
+            std::cerr << "Error: " << e.what() << '\n';
+      }
+}
 
-#endif
+void RecordScore::setterScore(int score){
+      try{
+            this->score = score;
+            if(this->score < 0){
+                  throw std::runtime_error("have't score for save record...");
+            }
+      }catch(const std::exception& e){
+            std::cerr << "Error: " << e.what() << '\n';
+      }
+}
+
+void RecordScore::display() const{
+      std:: cout << playerName << " | " << score << '\n';
+}
+
+std::string RecordScore::toFileScore() const{
+
+      std::string muchTryToGame;
+      if(muchTry == 1){
+            muchTryToGame = "ONE TRY";
+      }else{
+            muchTryToGame = std::to_string(muchTry);
+      }
+      std::string scoreStr = std::to_string(score);
+      int totalLength = 25 - playerName.length() - scoreStr.length();
+      if(totalLength < 0) totalLength = 1;
+      std::string underLine(totalLength, '-');
+
+      return playerName + underLine + scoreStr + " (" + muchTryToGame + ")";
+}
+
+void RecordScore::oneIncreasTry(){
+      muchTry++;
+}
+int RecordScore::getterMuchTry() const{
+      return muchTry;
+}

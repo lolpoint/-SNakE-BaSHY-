@@ -5,16 +5,19 @@
 
 
 
-Food::Food(int, int){
+Food::Food(int x, int y){
       this->x = x;
       this->y = y;
+      this->symbol = 'o';
+}
+Food::Food(){
       this->symbol = 'o';
 }
 
 int Food::getX() const{ return x; }
 int Food::getY() const{ return y; }
 
-void Food::generateRandom(const Snake& snake, int width, int height){
+void Food::generateRandomFood(const Snake& snake, int width, int height){
       std::mt19937 pesudo{static_cast<unsigned int>(std::chrono::steady_clock::now().time_since_epoch().count())};
       std::uniform_int_distribution width_food{1, width-1};
       std::uniform_int_distribution height_food{1, height-1};

@@ -1,5 +1,5 @@
+#ifndef  SEGMENT_H
 #define SEGMENT_H
-#ifdef  SEGMENT_H
 
 #include "utils.h"
 

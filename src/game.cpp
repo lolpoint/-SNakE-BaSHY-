@@ -269,7 +269,7 @@ void Game::checkCollisions(){
             lastScoreForSpeed = score / 100;
             gotoXY(width/2, height/2);
             SetConsoleTextAttribute(Hconsole, 6);
-            highlightText("^^LEVEL UP^^", 5, width/2, height/2);
+            highlightText("^^LEVEL UP^^", 5, width/2-3, height/2);
             speedMoveSnake -= 10;
             SetConsoleTextAttribute(Hconsole, 7);
       }

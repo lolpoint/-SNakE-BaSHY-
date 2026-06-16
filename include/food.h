@@ -9,7 +9,6 @@ private:
       int x,y;
       char symbol;
 public:
-      Food(int, int);
       Food();
 
       void generateRandomFood(const Snake&, int, int);

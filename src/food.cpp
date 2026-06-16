@@ -3,13 +3,6 @@
 #include <chrono>
 #include <iostream>
 
-
-
-Food::Food(int x, int y){
-      this->x = x;
-      this->y = y;
-      this->symbol = 'o';
-}
 Food::Food(){
       this->symbol = 'o';
 }

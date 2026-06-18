@@ -8,6 +8,7 @@ class ManageScore{
 private:
       std::vector <RecordScore> recordScore;
       std::string fileName = "data/record.txt";
+      int countAnonymous = 1;
 
 public:
       bool saveScore();

@@ -3,9 +3,12 @@
 
 #include "utils.h"
 #include "segment.h"
+#include "randomBrick.h"
 #include <vector>
 
-class Snake 
+class RandomBrick;
+
+class Snake
 {
 private:
       std::vector<Segment> body;

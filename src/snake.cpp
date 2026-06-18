@@ -1,4 +1,5 @@
-#include "../include/snake.h"
+#include "..\include\snake.h"
+#include "../include/randomBrick.h"
 #include <iostream>
 
 Snake::Snake(Dir dir, Dir oldDir, int initialLenght){
@@ -13,13 +14,10 @@ Snake::Snake(Dir dir, Dir oldDir, int initialLenght){
 void Snake::setBody(){
       int startX = 20;
       int startY = 10;
-      short _i = 0;
-      short _j = 0;
-      short _k = 0;
 
-      for(int i = _i; i < initialLenght; i++){
+      for(int i = 0; i < initialLenght; i++){
             body.push_back(Segment(startX - i, startY));
-            _i++;
+            i++;
       }
 }
 

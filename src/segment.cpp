@@ -1,4 +1,4 @@
-#include "../include/segment.h"
+#include "..\include\segment.h"
 
 Segment::Segment(int x, int y){
       setX(x);

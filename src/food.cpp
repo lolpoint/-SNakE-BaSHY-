@@ -1,4 +1,4 @@
-#include "../include/food.h"
+#include "..\include\food.h"
 #include <random>
 #include <chrono>
 #include <iostream>
@@ -24,7 +24,7 @@ void Food::generateRandomFood(const Snake& snake, int width, int height){
 
             for(const auto& segment : body){
                   if(segment.getX() == x && segment.getY() == y){
-                        validPosision = true;
+                        validPosision = false;
                         break;
                   }
             }
@@ -32,6 +32,8 @@ void Food::generateRandomFood(const Snake& snake, int width, int height){
 
       draw();
 }
+
+
 void Food::draw() const{
       gotoXY(x, y);
       std::cout << symbol;

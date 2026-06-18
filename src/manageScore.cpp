@@ -1,5 +1,6 @@
 
 #include "..\include\manageScore.h"
+#include <string>
 #include <fstream>
 #include <iostream>
 #include <algorithm>
@@ -51,6 +52,13 @@ void ManageScore::addScoreWithName(RecordScore& record){
                   hasPlayerNameChange(record.getterPlayerName(), record.getterScore());
             }
             else recordScore.push_back(record);
+
+            if(hasPlayerName(record.getterPlayerName()) && record.getterPlayerName() == "Anonymous"){
+                  std::string newName = "Anonymous" + std::to_string(countAnonymous);
+                  record.setterPlayerName(newName);
+                  countAnonymous++;
+            }     
+
             if(!saveScore()) {  
                   throw std::runtime_error("Failed to save score to file");
             }

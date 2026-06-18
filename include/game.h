@@ -9,6 +9,7 @@
 class Game{
 private:
 
+      RandomBrick* brick;
       Food* food;
       Snake* snake;
       RecordScore* recordScore;
@@ -28,6 +29,7 @@ private:
       void getNamePlayer();
       void helper() const;
       void buildWall() const;
+      void resetGame();
 
 public:
       Game(int width, int height);

@@ -1,5 +1,5 @@
-#include "../include/game.h"
-#include "../include/utils.h"
+#include "..\include\game.h"
+#include "..\include\utils.h"
 #include <conio.h>
 #include <iostream>
 
@@ -7,10 +7,12 @@ Game::Game(int width, int height){
       this->width = width;
       this->height = height;
       snake = new Snake(UP, UP, 3);
+      brick = new RandomBrick();
       food = new Food();
-      food->generateRandomFood(*snake, width, height);
       recordScore = new RecordScore("", 0);
       manageScore = new ManageScore();
+      brick->generateRandomBrick(*snake, width, height);
+      food->generateRandomFood(*snake, width, height);
       score = 0;
       health = 3;
       isRunning = true;
@@ -24,6 +26,7 @@ Game::~Game(){
       delete food;
       delete recordScore;
       delete manageScore;
+      delete brick;
 }
 
 void Game::handleInput(){
@@ -46,7 +49,28 @@ void Game::handleInput(){
       }
 }
 
+void Game::resetGame(){
+      score = 0;
+      health = 3;
+      isRunning = true;
+      speedMoveSnake = 150;
+    
+      delete snake;
+      delete food;
+      delete brick;
+    
+      snake = new Snake(UP, UP, 3);
+      food = new Food();
+      food->generateRandomFood(*snake, width, height);
+    
+      brick = new RandomBrick();
+      brick->generateRandomBrick(*snake, width, height);
+    
+      system("cls");
+}
+
 void Game::run(){
+      system("cls");
       hideCursor();
       showMenu();
 
@@ -77,6 +101,7 @@ void Game::run(){
       
       else if(choice == 1){
             getNamePlayer();
+            resetGame();
 
             buildWall();
             while(isRunning){
@@ -92,6 +117,7 @@ void Game::run(){
             gotoXY(width/2, height/2 + 6);
             std::cout << "Press any key return menu...";
             _kbhit();
+            resetGame();
             run();
       }
 }
@@ -130,6 +156,9 @@ void Game::render(){
 
       SetConsoleTextAttribute(Hconsole, 2);
       snake->draw();
+
+      SetConsoleTextAttribute(Hconsole, 6);
+      brick->draw();
 
       SetConsoleTextAttribute(Hconsole, 7);
 }
@@ -217,6 +246,7 @@ void Game::gameOver(){
             manageScore->addScoreWithName(*recordScore);
             manageScore->sortByScore(false);
             recordScore->display();
+
             loadSimilaitor(100, width/2, height/2 + 4, 2);
             gotoXY(width/2, height/2 + 4);
             std::cout << "Score saved temporarily!";
@@ -244,8 +274,12 @@ void Game::helper() const{
 void Game::checkCollisions(){
       HANDLE Hconsole = GetStdHandle(STD_OUTPUT_HANDLE);
       const std::vector<Segment>& getBodySegment = snake->getBody();
-      
-      if(food->getX() == getBodySegment[0].getX() && food->getY() == getBodySegment[0].getY()){
+      int headX = getBodySegment[0].getX();
+      int headY = getBodySegment[0].getY();
+
+      if(getBodySegment.empty()) return;
+
+      if(food->getX() == headX && food->getY() == headY){
             score += 10;
             snake->grow();
             food->generateRandomFood(*snake, width, height);
@@ -259,10 +293,21 @@ void Game::checkCollisions(){
             }else{ 
                   isRunning = false;
             }   
+            loadSimilaitor(100, width/2, height/2, 1);
+            int lenght = getBodySegment.size()+1;
+            delete snake;
+            snake = new Snake(UP, UP, lenght);
+      }
+
+      if(brick->hasBrick(headX, headY)){
+            health--;
+            loadSimilaitor(100, width/2, height/2, 1);
             int lenght = getBodySegment.size();
             delete snake;
             snake = new Snake(UP, UP, lenght);
-            loadSimilaitor(100, width/2, height/2, 1);
+            if(health <= 0){
+                  isRunning = false;
+            }
       }
 
       if(score >= 100 && score / 100 > lastScoreForSpeed){
@@ -272,6 +317,10 @@ void Game::checkCollisions(){
             highlightText("^^LEVEL UP^^", 5, width/2-3, height/2);
             speedMoveSnake -= 10;
             SetConsoleTextAttribute(Hconsole, 7);
+            
+            delete brick;
+            brick = new RandomBrick();
+            brick->generateRandomBrick(*snake, width, height);
       }
 
       if(snake->getDirection() == UP || snake->getDirection() == DOWN){

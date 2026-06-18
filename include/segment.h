@@ -1,8 +1,6 @@
 #ifndef  SEGMENT_H
 #define SEGMENT_H
 
-#include "utils.h"
-
 class Segment{
       private:
             int x, y;

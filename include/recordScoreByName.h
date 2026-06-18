@@ -7,6 +7,7 @@ class RecordScore{
 private:
       std::string playerName;
       int score, muchTry;
+      
 
       public:
       RecordScore(std::string, int);

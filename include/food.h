@@ -1,7 +1,6 @@
 #ifndef  FOOD_H
 #define FOOD_H
 
-#include "utils.h"
 #include "snake.h"
 
 class Food{
